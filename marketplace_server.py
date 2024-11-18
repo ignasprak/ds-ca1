@@ -22,6 +22,9 @@ clients = []
 client_ids = {}
 
 def handle_client(client_socket, client_address):
+    """
+    Handle communication with a connected client.
+    """
     global current_item
     client_id = str(uuid.uuid4())
     client_ids[client_socket] = client_id
@@ -46,6 +49,9 @@ def handle_client(client_socket, client_address):
     del client_ids[client_socket]
 
 def notify_all_clients(message):
+    """
+    Send a message to all connected clients.
+    """
     for client in clients:
         try:
             client.sendall(message.encode('utf-8'))
@@ -53,6 +59,9 @@ def notify_all_clients(message):
             clients.remove(client)
 
 def start_server():
+    """
+    Start the server and accept client connections.
+    """
     global current_item
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -72,6 +81,9 @@ def start_server():
             threading.Thread(target=sell_item).start()
 
 def sell_item():
+    """
+    Manage the selling of items, switching items every 60 seconds or when sold out.
+    """
     global current_item
     while True:
         for i in range(60, 0, -1):

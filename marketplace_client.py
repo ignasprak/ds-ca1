@@ -11,6 +11,9 @@ host = 'localhost'
 port = 12345
 
 def receive_messages(client_socket):
+    """
+    Continuously receive messages from the server.
+    """
     while True:
         try:
             response = client_socket.recv(1024).decode('utf-8')
@@ -20,6 +23,9 @@ def receive_messages(client_socket):
             break
 
 def main():
+    """
+    Main function to connect to the server and handle user commands.
+    """
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((host, port))
 
