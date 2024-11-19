@@ -32,7 +32,7 @@ def main():
     threading.Thread(target=receive_messages, args=(client_socket,)).start()
 
     while True:
-        command = input("Enter command (buy <amount>, exit): ")
+        command = input("Enter command (buy <amount>, list, exit): ")
         if command == 'exit':
             break
         client_socket.sendall(command.encode('utf-8'))
