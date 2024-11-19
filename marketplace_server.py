@@ -1,3 +1,9 @@
+# Code used from other files:
+# - The basic structure and socket handling were inspired by the echo server example from 1_13a_echo_server.py.
+# - The threading and client handling logic were adapted from the marketplace_server.py file.
+# - The notification mechanism to all clients was inspired by the marketplace_server.py file.
+
+
 import socket
 import threading
 import time
@@ -106,6 +112,8 @@ def sell_item(stop_event):
             return  # Exit the function if the stop event is set
         with item_lock:
             print(f"\rTime left for selling {current_item}: {i} seconds | Amount left: {items[current_item]}", end='')
+            if i % 10 == 0:
+                notify_all_clients(f"Time left for selling {current_item}: {i} seconds")
         time.sleep(1)
     print()  # Move to the next line after countdown
     with item_lock:
