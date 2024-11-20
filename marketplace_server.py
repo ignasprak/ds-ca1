@@ -21,7 +21,6 @@ items = {
 current_item = None
 item_lock = threading.Lock()
 clients = []
-client_ids = {}
 client_usernames = {}
 countdown_thread = None
 # Define a global stop event
