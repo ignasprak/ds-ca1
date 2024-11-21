@@ -1,7 +1,7 @@
 # Code used from other files:
-# - The basic structure and socket handling were inspired by the echo server example from 1_13a_echo_server.py.
-# - The threading and client handling logic were adapted from the marketplace_server.py file.
-# - The notification mechanism to all clients was inspired by the marketplace_server.py file.
+# - 1_13a_echo_server.py
+# - calc_server.py
+# - inspiration from java files of concurrency and threads
 
 
 import socket

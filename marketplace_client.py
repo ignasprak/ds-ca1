@@ -1,7 +1,7 @@
 # Code used from other files:
-# - The basic structure and socket handling were inspired by the echo client example from 1_13b_echo_client.py.
-# - The threading and message receiving logic were adapted from the marketplace_client.py file.
-# - The command input and sending mechanism were inspired by the marketplace_client.py file.
+# - 1_13b_echo_client.py
+# - calc_client.py
+# - inspiration from java files of concurrency and threads
 
 import socket
 import sys
