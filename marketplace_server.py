@@ -19,12 +19,11 @@ items = {
     'oil': 5
 }
 current_item = None
-item_lock = threading.Lock()
-clients = []
+item_lock = threading.Lock() # Used to prevent race conditions
+clients = [] 
 client_usernames = {}
 countdown_thread = None
-# Define a global stop event
-stop_event = threading.Event()
+stop_event = threading.Event() # Define a global stop event
 buyer_count = 0
 
 def handle_client(client_socket, client_address):
@@ -85,21 +84,21 @@ def start_server():
     Start the server and accept client connections.
     """
     global current_item
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Creates a new TCP/IP socket
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # Sets socket options
     server_socket.bind((host, port))
-    server_socket.listen(5)
+    server_socket.listen(5) # If a sixth client decides to join, it will have to wait until another active client disconnects
     print(f"Server started on {host}:{port}")
 
-    current_item = list(items.keys())[0]
-    threading.Thread(target=sell_item, args=(stop_event,)).start()
+    current_item = list(items.keys())[0] # Starts on the first item from the list
+    threading.Thread(target=sell_item, args=(stop_event,)).start() # Starts the thread for selling an item
 
     with ThreadPoolExecutor(max_workers=10) as executor:
-        while True:
+        while True: # Infinite Loop
             client_socket, client_address = server_socket.accept()
-            clients.append(client_socket)
+            clients.append(client_socket) # Newly accepted client sockets
             print(f"\r{' ' * 50}\rConnection from {client_address}. Total clients: {len(clients)}")  # Clear the last countdown and print connection message
-            executor.submit(handle_client, client_socket, client_address)
+            executor.submit(handle_client, client_socket, client_address) # Allows the server to handle multiple client connections concurrently
 
 def sell_item(stop_event):
     """

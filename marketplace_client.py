@@ -29,7 +29,7 @@ def main():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((host, port))
 
-    threading.Thread(target=receive_messages, args=(client_socket,)).start()
+    threading.Thread(target=receive_messages, args=(client_socket,)).start() # Creates a new thread and allows it run concurrently with recieve_messages function, and specifies the function to be execueted ion the new thread
 
     while True:
         command = input("Enter command (buy <amount>, list, exit): ")
